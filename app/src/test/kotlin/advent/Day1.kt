@@ -1,4 +1,4 @@
-package advent.Test
+package advent.test
 
 import advent.day1.Day1
 import kotlin.test.Test

@@ -1,8 +1,8 @@
-package advent.Test
+package advent.test
 
-import advent.Game
-import advent.Hand
-import advent.filterMaxCubesAndSum
+import advent.day2.Game
+import advent.day2.Hand
+import advent.day2.filterMaxCubesAndSum
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -19,24 +19,24 @@ class Day2 {
         val games = mutableListOf<Game>()
 
         for (line in input) {
-            games += Game.parse(line)
+            games.add(Game.parse(line))
         }
         assertEquals(5, games.size)
 
         val game1 = games[0]
         assertEquals(1, game1.id)
 
-        assertEquals(game1.hands.size, 3);
+        assertEquals(game1.hands.size, 3)
 
         val h1 = game1.hands[0]
-        assertEquals(h1.red, 4);
-        assertEquals(h1.green, 0);
-        assertEquals(h1.blue, 3);
+        assertEquals(h1.red, 4)
+        assertEquals(h1.green, 0)
+        assertEquals(h1.blue, 3)
 
         val h2 = game1.hands[1]
-        assertEquals(h2.red, 1);
-        assertEquals(h2.green, 2);
-        assertEquals(h2.blue, 6);
+        assertEquals(h2.red, 1)
+        assertEquals(h2.green, 2)
+        assertEquals(h2.blue, 6)
 
         val maxCubes = games.maxCubes()
 
@@ -50,7 +50,7 @@ class Day2 {
     @Test
     fun part2() {
         val games = input.fold(mutableListOf<Game>()) { games, line ->
-            games += Game.parse(line)
+            games.add(Game.parse(line))
             games
         }
         assertEquals(5, games.size)

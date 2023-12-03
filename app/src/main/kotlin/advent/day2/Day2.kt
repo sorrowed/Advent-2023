@@ -1,4 +1,4 @@
-package advent
+package advent.day2
 
 import java.io.File
 
@@ -24,7 +24,7 @@ class Game(val id: Int) {
     var hands = mutableListOf<Hand>()
 
     fun add(hand: Hand) {
-        this.hands += hand
+        hands.add(hand)
     }
 
     fun max(): Hand {
@@ -80,7 +80,7 @@ class Day2 {
     fun part1() {
         val games = File("app/src/main/kotlin/advent/input/day2.txt")
                 .readLines().fold(mutableListOf<Game>()) { games, line ->
-                    games += Game.parse(line)
+                    games.add(Game.parse(line))
                     games
                 }
 
@@ -92,7 +92,7 @@ class Day2 {
     fun part2() {
         val games = File("app/src/main/kotlin/advent/input/day2.txt")
                 .readLines().fold(mutableListOf<Game>()) { games, line ->
-                    games += Game.parse(line)
+                    games.add(Game.parse(line))
                     games
                 }
 
