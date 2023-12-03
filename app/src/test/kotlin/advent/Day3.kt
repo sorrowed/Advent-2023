@@ -4,6 +4,7 @@ import advent.day3.Coordinate
 import advent.day3.Map
 import advent.day3.Number
 import advent.day3.Symbol
+import advent.day3.Gear
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -52,5 +53,15 @@ class Day3 {
 
     @Test
     fun part2() {
+        val map = Map.parse(input)
+
+        val gears = map.gears()
+        assertEquals(Gear(Coordinate(3, 1), 467, 35), gears[0])
+        assertEquals(16345, gears[0].ratio())
+        assertEquals(Gear(Coordinate(5, 8), 755, 598), gears[1])
+        assertEquals(451490, gears[1].ratio())
+
+        val sumOfGeartRatios = gears.fold(0) { sum, gear -> sum + gear.ratio() }
+        assertEquals(467835, sumOfGeartRatios)
     }
 }
