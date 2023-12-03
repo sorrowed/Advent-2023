@@ -28,7 +28,7 @@ class Day1 {
 
         while (source.isNotEmpty()) {
 
-            var writtenDigit: Boolean = false
+            var writtenDigit = false
             for (digit in digits) {
                 if (source.startsWith(digit.second)) {
                     result += digit.first

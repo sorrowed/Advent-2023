@@ -1,13 +1,8 @@
 package advent.day3
 
 import java.io.File
-import kotlin.math.absoluteValue
 
 data class Coordinate(val x: Int, val y: Int)
-
-fun Coordinate.distance(that: Coordinate): Int {
-    return (that.x - x).absoluteValue + (that.y - y).absoluteValue
-}
 
 data class Number(val value: Int, val topLeft: Coordinate, val bottomRight: Coordinate)
 
@@ -39,7 +34,7 @@ class Map {
     }
 
     fun isPartNumber(number: Number): Boolean {
-        return symbols.any() { symbol -> symbol.touches(number) }
+        return symbols.any { symbol -> symbol.touches(number) }
     }
 
     fun gears(): List<Gear> {
