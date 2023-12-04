@@ -48,11 +48,11 @@ class Day1 {
     }
 
     fun part1Sum(lines: List<String>): Int {
-        return lines.fold(0) { sum, line -> sum + firstAndLastOrdinal(line) }
+        return lines.sumOf { line -> firstAndLastOrdinal(line) }
     }
 
     fun part2Sum(lines: List<String>): Int {
-        return lines.fold(0) { sum, line -> sum + firstAndLastOrdinal(replaceWrittenDigits(line)) }
+        return lines.sumOf { line -> firstAndLastOrdinal(replaceWrittenDigits(line)) }
     }
 
     fun part1() {

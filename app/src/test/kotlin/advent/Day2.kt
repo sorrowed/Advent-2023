@@ -61,7 +61,7 @@ class Day2 {
         assertEquals(Hand(14, 3, 15), games[3].max())
         assertEquals(Hand(6, 3, 2), games[4].max())
 
-        val sumOfPower = games.fold(0) { sum, game -> sum + game.max().power() }
+        val sumOfPower = games.sumOf { game -> game.max().power() }
 
         assertEquals(2286, sumOfPower)
     }

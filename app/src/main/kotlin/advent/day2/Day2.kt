@@ -72,7 +72,7 @@ fun MutableList<Game>.filterMaxCubesAndSum(red: Int, green: Int, blue: Int): Int
         val max = game.max()
         max.red <= red && max.green <= green && max.blue <= blue
     }
-    return possibleGames.fold(0) { total, game -> total + game.id }
+    return possibleGames.sumOf { game -> game.id }
 }
 
 
@@ -96,7 +96,7 @@ class Day2 {
                     games
                 }
 
-        val sumOfPower = games.fold(0) { sum, game -> sum + game.max().power() }
+        val sumOfPower = games.sumOf { game -> game.max().power() }
 
         println("Day 2 Part 2 : $sumOfPower")
     }

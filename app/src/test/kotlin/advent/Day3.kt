@@ -47,7 +47,7 @@ class Day3 {
         assertFalse(map.isPartNumber(map.numbers[5]))
 
         val sumOfPartNumbers = map.numbers.filter { number -> map.isPartNumber(number) }
-                .fold(0) { sum, number -> sum + number.value }
+                .sumOf { number -> number.value }
         assertEquals(4361, sumOfPartNumbers)
     }
 
@@ -61,7 +61,7 @@ class Day3 {
         assertEquals(Gear(Coordinate(5, 8), 755, 598), gears[1])
         assertEquals(451490, gears[1].ratio())
 
-        val sumOfGeartRatios = gears.fold(0) { sum, gear -> sum + gear.ratio() }
+        val sumOfGeartRatios = gears.sumOf { gear -> gear.ratio() }
         assertEquals(467835, sumOfGeartRatios)
     }
 }

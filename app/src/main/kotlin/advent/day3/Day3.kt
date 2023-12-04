@@ -7,7 +7,7 @@ data class Coordinate(val x: Int, val y: Int)
 data class Number(val value: Int, val topLeft: Coordinate, val bottomRight: Coordinate)
 
 data class Symbol(val value: Char, val location: Coordinate) {
-    fun isGearSymbol(): Boolean = value == '*'
+    val isGearSymbol get() = value == '*'
 }
 
 data class Gear(val location: Coordinate, val p1: Int, val p2: Int) {
@@ -40,7 +40,7 @@ class Map {
     fun gears(): List<Gear> {
         val result = mutableListOf<Gear>()
 
-        for (symbol in symbols.filter { symbol -> symbol.isGearSymbol() }) {
+        for (symbol in symbols.filter { symbol -> symbol.isGearSymbol }) {
             val numbers = numbers.filter { number -> symbol.touches(number) }
             if (numbers.size == 2) {
                 result.add(Gear(symbol.location, numbers[0].value, numbers[1].value))
@@ -84,7 +84,7 @@ class Day3 {
         val map = Map.parse(File("app/src/main/kotlin/advent/input/day3.txt").readLines())
 
         val sumOfPartNumbers = map.numbers.filter { number -> map.isPartNumber(number) }
-                .fold(0) { sum, number -> sum + number.value }
+                .sumOf { number -> number.value }
 
         println("Day 3 Part 1 : $sumOfPartNumbers")
     }
@@ -93,7 +93,7 @@ class Day3 {
         val map = Map.parse(File("app/src/main/kotlin/advent/input/day3.txt").readLines())
 
         val gears = map.gears()
-        val sumOfGeartRatios = gears.fold(0) { sum, gear -> sum + gear.ratio() }
+        val sumOfGeartRatios = gears.sumOf { gear -> gear.ratio() }
 
         println("Day 3 Part 2 : $sumOfGeartRatios")
     }
