@@ -8,4 +8,5 @@ fun main() {
     advent.day2.run()
     advent.day3.run()
     advent.day4.run()
+    advent.day5.run()
 }
