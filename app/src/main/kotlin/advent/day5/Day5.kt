@@ -56,7 +56,7 @@ class Day5 {
     }
 
     fun part2() {
-        println("Day 5 Part 1")
+        println("Day 5 Part 2")
     }
 }
 
