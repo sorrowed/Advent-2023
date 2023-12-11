@@ -42,10 +42,7 @@ class Day5 {
                                                     find(soilToFertilizerMap,
                                                             find(seedToSoilMap, seed)))))))
 
-    private val seeds = Input().seeds.fold(mutableListOf<Long>()) { list, line ->
-        list.add(line.toLong())
-        list
-    }.toList()
+    private val seeds = Input().seeds.map { it.toLong() }
 
     fun part1() {
 

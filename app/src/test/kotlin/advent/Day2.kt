@@ -49,10 +49,8 @@ class Day2 {
 
     @Test
     fun part2() {
-        val games = input.fold(mutableListOf<Game>()) { games, line ->
-            games.add(Game.parse(line))
-            games
-        }
+        val games = input.map { Game.parse(it) }
+
         assertEquals(5, games.size)
 
         assertEquals(Hand(4, 2, 6), games[0].max())

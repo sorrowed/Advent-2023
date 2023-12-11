@@ -15,10 +15,7 @@ class Day4 {
 
     @Test
     fun part1() {
-        val cards = input.fold(mutableListOf<Card>()) { cards, line ->
-            cards.add(Card.parse(line))
-            cards
-        }
+        val cards = input.map { Card.parse(it) }
 
         assertEquals(6, cards.size)
 
@@ -54,10 +51,7 @@ class Day4 {
 
     @Test
     fun part2() {
-        val cards = input.fold(mutableListOf<Pair<Int, Card>>()) { cards, line ->
-            cards.add(Pair(1, Card.parse(line)))
-            cards
-        }
+        val cards = input.map { Pair(1, Card.parse(it)) }.toMutableList()
 
         cards.forEachIndexed() { index, hand ->
             val numberOfCardsWon = hand.second.winningNumbers().size;

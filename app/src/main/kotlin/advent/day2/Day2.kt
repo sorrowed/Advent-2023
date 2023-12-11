@@ -67,7 +67,7 @@ class Game(val id: Int) {
 }
 
 
-fun MutableList<Game>.filterMaxCubesAndSum(red: Int, green: Int, blue: Int): Int {
+fun List<Game>.filterMaxCubesAndSum(red: Int, green: Int, blue: Int): Int {
     val possibleGames = this.filter { game ->
         val max = game.max()
         max.red <= red && max.green <= green && max.blue <= blue
@@ -79,10 +79,7 @@ fun MutableList<Game>.filterMaxCubesAndSum(red: Int, green: Int, blue: Int): Int
 class Day2 {
     fun part1() {
         val games = File("app/src/main/kotlin/advent/input/day2.txt")
-                .readLines().fold(mutableListOf<Game>()) { games, line ->
-                    games.add(Game.parse(line))
-                    games
-                }
+                .readLines().map { Game.parse(it) }
 
         val sumOfIds = games.filterMaxCubesAndSum(12, 13, 14)
 
@@ -91,10 +88,7 @@ class Day2 {
 
     fun part2() {
         val games = File("app/src/main/kotlin/advent/input/day2.txt")
-                .readLines().fold(mutableListOf<Game>()) { games, line ->
-                    games.add(Game.parse(line))
-                    games
-                }
+                .readLines().map { Game.parse(it) }
 
         val sumOfPower = games.sumOf { game -> game.max().power() }
 

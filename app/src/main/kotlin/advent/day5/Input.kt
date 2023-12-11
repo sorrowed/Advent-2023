@@ -202,7 +202,4 @@ class Input {
 }
 
 fun toMap(input: List<String>) =
-        input.fold(mutableListOf<MapLine>()) { list, line ->
-            list.add(MapLine.parse(line))
-            list
-        }.sortedBy { line -> line.sourceBegin }
+        input.map { MapLine.parse(it) }.sortedBy { line -> line.sourceBegin }

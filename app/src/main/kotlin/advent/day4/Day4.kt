@@ -39,10 +39,7 @@ class Day4 {
     fun part1() {
         val cards = File("app/src/main/kotlin/advent/input/day4.txt")
                 .readLines()
-                .fold(mutableListOf<Card>()) { c, line ->
-                    c.add(Card.parse(line))
-                    c
-                }
+                .map { Card.parse(it) }
 
         val totalScore = cards.sumOf { card -> card.score() }
         println("Day 4 Part 1 : $totalScore")
@@ -51,10 +48,7 @@ class Day4 {
     fun part2() {
         val cards = File("app/src/main/kotlin/advent/input/day4.txt")
                 .readLines()
-                .fold(mutableListOf<Pair<Int, Card>>()) { c, line ->
-                    c.add(Pair(1, Card.parse(line)))
-                    c
-                }
+                .map { Pair(1, Card.parse(it)) }.toMutableList()
 
         cards.forEachIndexed() { index, hand ->
             val numberOfCardsWon = hand.second.winningNumbers().size;

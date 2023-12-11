@@ -14,45 +14,27 @@ class Day5 {
     )
 
     private val soilToFertilizerMap =
-            listOf("0 15 37", "37 52 2", "39 0 15").fold(mutableListOf<MapLine>()) { list, line ->
-                list.add(MapLine.parse(line))
-                list
-            }
+            listOf("0 15 37", "37 52 2", "39 0 15").map { MapLine.parse(it) }
 
 
     private val fertilizerToWaterMap =
-            listOf("49 53 8", "0 11 42", "42 0 7", "57 7 4").fold(mutableListOf<MapLine>()) { list, line ->
-                list.add(MapLine.parse(line))
-                list
-            }
+            listOf("49 53 8", "0 11 42", "42 0 7", "57 7 4").map { MapLine.parse(it) }
 
 
     private val waterToLightMap =
-            listOf("88 18 7", "18 25 70").fold(mutableListOf<MapLine>()) { list, line ->
-                list.add(MapLine.parse(line))
-                list
-            }
+            listOf("88 18 7", "18 25 70").map { MapLine.parse(it) }
 
 
     private val lightToTemperatureMap =
-            listOf("45 77 23", "81 45 19", "68 64 13").fold(mutableListOf<MapLine>()) { list, line ->
-                list.add(MapLine.parse(line))
-                list
-            }
+            listOf("45 77 23", "81 45 19", "68 64 13").map { MapLine.parse(it) }
 
 
     private val temperatureToHumidityMap =
-            listOf("0 69 1", "1 0 69").fold(mutableListOf<MapLine>()) { list, line ->
-                list.add(MapLine.parse(line))
-                list
-            }
+            listOf("0 69 1", "1 0 69").map { MapLine.parse(it) }
 
 
     private val humidityToLocationMap =
-            listOf("60 56 37", "56 93 4").fold(mutableListOf<MapLine>()) { list, line ->
-                list.add(MapLine.parse(line))
-                list
-            }
+            listOf("60 56 37", "56 93 4").map { MapLine.parse(it) }
 
     private fun seedToSoil(seed: Long) = advent.day5.find(seedToSoilMap, seed)
 
