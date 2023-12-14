@@ -28,7 +28,7 @@ class Day9 {
     fun extrapolateForwards(primitives: List<List<Int>>): List<List<Int>> {
         val result = mutableListOf<List<Int>>()
 
-        for (index in (0..primitives.size - 1).reversed()) {
+        for (index in (0..<primitives.size).reversed()) {
             val current = primitives[index].toMutableList()
 
             val new = if (index == primitives.size - 1) {
@@ -39,13 +39,13 @@ class Day9 {
             current.add(new)
             result.add(current)
         }
-        return result.reversed().toList()
+        return result.reversed()
     }
 
     fun extrapolateBackwards(primitives: List<List<Int>>): List<List<Int>> {
         val result = mutableListOf<List<Int>>()
 
-        for (index in (0..primitives.size - 1).reversed()) {
+        for (index in (0..<primitives.size).reversed()) {
             val current = primitives[index].toMutableList()
 
             val new = if (index == primitives.size - 1) {
@@ -56,7 +56,7 @@ class Day9 {
             current.addFirst(new)
             result.add(current)
         }
-        return result.reversed().toList()
+        return result.reversed()
     }
 
     fun part1() {
