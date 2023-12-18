@@ -23,7 +23,7 @@ class Day10 {
         //assertEquals(Pipe.START, maze.tiles[Position(0, 2)]!!.second)
         assertEquals(Pipe.SOUTH_WEST, maze.tiles[Position(4, 2)]!!.second)
 
-        val d: (Position, Position) -> Int = { f, t -> f.distanceTo(t) }
+        val d: (Position, Position) -> Int = { f, t -> f.manhattan(t) }
 
         val from = maze.tiles[Position(1, 2)]!!.first
         val target = maze.tiles[Position(0, 3)]!!.first

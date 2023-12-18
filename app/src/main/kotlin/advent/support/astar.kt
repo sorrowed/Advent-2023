@@ -3,7 +3,7 @@ package advent.support
 import kotlin.math.abs
 
 data class Position(val x: Int, val y: Int) {
-    fun distanceTo(to: Position): Int {
+    fun manhattan(to: Position): Int {
         return abs(to.x - x) + abs(to.y - y)
     }
 }

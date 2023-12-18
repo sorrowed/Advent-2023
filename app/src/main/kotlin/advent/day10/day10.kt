@@ -5,7 +5,7 @@ import advent.support.aStar
 import advent.support.inside
 import java.io.File
 
-enum class Pipe(val which: Char) {
+enum class Pipe(val type: Char) {
     NORTH_SOUTH('|'),
     EAST_WEST('-'),
     NORTH_EAST('L'),
@@ -16,7 +16,7 @@ enum class Pipe(val which: Char) {
     START('S');
 
     companion object {
-        private val map = entries.associateBy { it.which }
+        private val map = entries.associateBy { it.type }
         infix fun from(value: Char) = map[value]
     }
 
@@ -70,7 +70,7 @@ class Day10 {
         val start = Position(startPosition.x, startPosition.y + 1)
         val end = Position(startPosition.x + 1, startPosition.y)
 
-        val d: (Position, Position) -> Int = { f, t -> f.distanceTo(t) }
+        val d: (Position, Position) -> Int = { f, t -> f.manhattan(t) }
         val path = aStar(start, end, { maze.neighbors(it) }, d, d)
 
         return Pair(startPosition, path.first)
