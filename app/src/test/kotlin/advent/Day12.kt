@@ -1,47 +1,27 @@
 package advent
 
-import advent.support.Position
+import  advent.day12.groupsAndTemplate
+import  advent.day12.arrangements
+
 import kotlin.test.Test
-import kotlin.test.assertContains
 import kotlin.test.assertEquals
-import kotlin.test.expect
-
-//import advent.day12.*
-
-enum class SpringCondition(val condition: Char) {
-
-    OPERATIONAL('.'),
-    BROKEN('#'),
-    UNKNOWN('?');
-
-    companion object {
-        private val map = entries.associateBy { it.condition }
-        infix fun from(value: Char) = map[value]
-    }
-}
-
-data class ConditionRecord(val position: Int, val condition: SpringCondition)
-
-fun String.parse(): Pair<List<ConditionRecord>, List<Int>> {
-    val (conditions, numbers) = this.split(' ')
-
-    return conditions.mapIndexed { x, c -> ConditionRecord(x, (SpringCondition from c)!!) } to numbers.split(',').map { it.toInt() }
-}
 
 class Day12 {
 
-    @Test
-    fun `given a string when parsed then a list of ConditionRecords is returned`() {
+    val input = listOf(
+            "???.### 1,1,3",
+            ".??..??...?##. 1,1,3",
+            "?#?#?#?#?#?#?#? 1,3,1,6",
+            "????.#...#... 4,1,1",
+            "????.######..#####. 1,6,5",
+            "?###???????? 3,2,1")
 
-        val parsed = "???.### 1,1,3".parse()
-        val expected = listOf(
-                ConditionRecord(0, SpringCondition.UNKNOWN),
-                ConditionRecord(1, SpringCondition.UNKNOWN),
-                ConditionRecord(2, SpringCondition.UNKNOWN),
-                ConditionRecord(3, SpringCondition.OPERATIONAL),
-                ConditionRecord(4, SpringCondition.BROKEN),
-                ConditionRecord(5, SpringCondition.BROKEN),
-                ConditionRecord(6, SpringCondition.BROKEN))
-        assertEquals(Pair(expected, listOf(1, 1, 3)), parsed)
+    @Test
+    fun `given a string when parsed then a result is valid`() {
+
+        assertEquals("???.###" to listOf(1, 1, 3), groupsAndTemplate(input[0]))
+        assertEquals(".??..??...?##." to listOf(1, 1, 3), groupsAndTemplate(input[1]))
+        assertEquals("?#?#?#?#?#?#?#?" to listOf(1, 3, 1, 6), groupsAndTemplate(input[2]))
+        assertEquals("????.#...#..." to listOf(4, 1, 1), groupsAndTemplate(input[3]))
     }
 }
