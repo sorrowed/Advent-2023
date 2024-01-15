@@ -21,7 +21,7 @@ class Day14 {
     )
 
     @Test
-    fun `given platform tilted north total load is correct`() {
+    fun `given platform when tilted north then total load is correct`() {
 
         val platform = Platform(input).tiltNorth()
 
@@ -44,7 +44,7 @@ class Day14 {
     }
 
     @Test
-    fun `given platform cycled rocks are in correct position`() {
+    fun `given platform when cycled then rocks are in correct position`() {
 
         var platform = Platform(input).cycle()
 
@@ -90,7 +90,7 @@ class Day14 {
     }
 
     @Test
-    fun `given platform cycled 1000000000 times total load is correct`() {
+    fun `given platform when cycled 1000000000 times then total load is correct`() {
 
         val platform = Platform(input).cycle(1_000_000_000)
 
@@ -98,7 +98,7 @@ class Day14 {
     }
 
     @Test
-    fun `given platform cycled 1000000000 times with real input total load is 83790`() {
+    fun `given platform when cycled 1000000000 times with real input then total load is 83790`() {
 
         val realInput = File("/home/tom/Projects/Advent-2023/app/src/main/kotlin/advent/input/day14.txt").readLines()
 
