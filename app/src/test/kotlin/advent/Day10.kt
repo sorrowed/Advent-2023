@@ -3,7 +3,7 @@ package advent
 import advent.day10.Maze
 import advent.day10.Pipe
 import advent.support.Position
-import advent.support.aStar
+import advent.support.Pathfinding
 
 import kotlin.test.*
 
@@ -23,12 +23,16 @@ class Day10 {
         //assertEquals(Pipe.START, maze.tiles[Position(0, 2)]!!.second)
         assertEquals(Pipe.SOUTH_WEST, maze.tiles[Position(4, 2)]!!.second)
 
-        val d: (Position, Position) -> Int = { f, t -> f.manhattan(t) }
-
         val from = maze.tiles[Position(1, 2)]!!.first
         val target = maze.tiles[Position(0, 3)]!!.first
 
-        val path = aStar(from, target, { maze.neighbors(it) }, d, d)
+        val path = Pathfinding.astar(
+                from,
+                { node -> node == target },
+                { node -> maze.neighbors(node) },
+                { from, to -> from.manhattan(to) },
+                { from -> from.manhattan(target) })
+
         assertEquals(8, (path.first.size + 1) / 2)
     }
 }

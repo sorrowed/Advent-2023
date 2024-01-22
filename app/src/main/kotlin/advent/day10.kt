@@ -1,7 +1,7 @@
 package advent.day10
 
 import advent.support.Position
-import advent.support.aStar
+import advent.support.Pathfinding
 import advent.support.inside
 import java.io.File
 
@@ -20,7 +20,7 @@ enum class Pipe(val type: Char) {
         infix fun from(value: Char) = map[value]
     }
 
-    fun isTraversable() = this != Pipe.GROUND
+    fun isTraversable() = this != GROUND
 }
 
 class Maze(val tiles: Map<Position, Pair<Position, Pipe>>) {
@@ -56,9 +56,9 @@ class Maze(val tiles: Map<Position, Pair<Position, Pipe>>) {
 }
 
 class Day10 {
-    val original = Maze.parse(File("app/src/main/kotlin/advent/input/day10.txt").readLines())
+    private val original = Maze.parse(File("app/src/main/kotlin/advent/input/day10.txt").readLines())
 
-    fun pathAndStart(): Pair<Position, List<Position>> {
+    private fun pathAndStart(): Pair<Position, List<Position>> {
         val startPosition = original.tiles.entries.first { it.value.second == Pipe.START }.key
 
         val tiles = original.tiles.toMutableMap()
@@ -70,8 +70,12 @@ class Day10 {
         val start = Position(startPosition.x, startPosition.y + 1)
         val end = Position(startPosition.x + 1, startPosition.y)
 
-        val d: (Position, Position) -> Int = { f, t -> f.manhattan(t) }
-        val path = aStar(start, end, { maze.neighbors(it) }, d, d)
+        val path = Pathfinding.astar(
+                start,
+                { node -> node == end },
+                { node -> maze.neighbors(node) },
+                { from, to -> from.manhattan(to) },
+                { from -> from.manhattan(end) })
 
         return Pair(startPosition, path.first)
     }

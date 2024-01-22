@@ -1,19 +1,8 @@
 package advent.day16
 
+import advent.support.Direction
 import advent.support.Position
 import java.io.File
-
-enum class Direction(val source: Char) {
-    UP('^'),
-    LEFT('<'),
-    DOWN('v'),
-    RIGHT('>');
-
-    companion object {
-        private val map = entries.associateBy { it.source }
-        infix fun from(value: Char) = map[value]
-    }
-}
 
 enum class Location(val source: Char) {
     EMPTY('.'),
@@ -55,6 +44,7 @@ class Contraption(val locations: Map<Position, Location>) {
             Direction.DOWN -> Position(position.x, position.y + 1)
             Direction.LEFT -> Position(position.x - 1, position.y)
             Direction.RIGHT -> Position(position.x + 1, position.y)
+            else -> error("Invalid direction")
         }
     }
 
@@ -66,6 +56,7 @@ class Contraption(val locations: Map<Position, Location>) {
                     Direction.DOWN -> Direction.RIGHT
                     Direction.LEFT -> Direction.UP
                     Direction.RIGHT -> Direction.DOWN
+                    else -> error("Invalid direction")
                 }
             }
 
@@ -75,6 +66,7 @@ class Contraption(val locations: Map<Position, Location>) {
                     Direction.DOWN -> Direction.LEFT
                     Direction.LEFT -> Direction.DOWN
                     Direction.RIGHT -> Direction.UP
+                    else -> error("Invalid direction")
                 }
             }
 

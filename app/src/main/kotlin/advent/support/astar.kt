@@ -1,61 +1,67 @@
 package advent.support
 
-import kotlin.math.abs
+typealias NeighborFunction<T> = (node: T) -> List<T>
 
-data class Position(val x: Int, val y: Int) {
-    fun manhattan(to: Position): Int {
-        return abs(to.x - x) + abs(to.y - y)
-    }
-}
+typealias EndFunction<T> = (node: T) -> Boolean
+typealias CostFunction<T> = (from: T, to: T) -> Int
+typealias HeuristicFunction<T> = (current: T) -> Int
 
-fun aStar(start: Position, target: Position, neightbors: (from: Position) -> List<Position>, moveCost: (from: Position, to: Position) -> Int, heuristic: (from: Position, to: Position) -> Int): Pair<List<Position>, Int> {
+typealias PastAndCost<T> = Pair<List<T>, Int>
 
-    fun generatePath(current: Position, visited: Map<Position, Position>): List<Position> {
-        val path = mutableListOf(current)
-        var from = current
-        while (visited.containsKey(from)) {
-            from = visited.getValue(from)
-            path.add(0, from)
+class Pathfinding {
+
+
+    companion object {
+        fun <T> path(current: T, visited: Map<T, T>): List<T> {
+            val path = mutableListOf(current)
+            var from = current
+            while (visited.containsKey(from)) {
+                from = visited.getValue(from)
+                path.add(0, from)
+            }
+            return path.toList()
         }
-        return path.toList()
-    }
 
+        fun <T> astar(start: T, isTarget: EndFunction<T>, neighbors: NeighborFunction<T>, moveCost: CostFunction<T>, heuristic: HeuristicFunction<T>): PastAndCost<T> {
 
-    val open = mutableSetOf(start)
-    val closed = mutableSetOf<Position>()
+            val open = mutableSetOf(start)
+            val closed = mutableSetOf<T>()
 
-    val costFromStart = mutableMapOf(start to 0)
+            val costFromStart = mutableMapOf(start to 0)
 
-    val totalCost = mutableMapOf(start to heuristic(start, target))
+            val totalCost = mutableMapOf(start to heuristic(start))
 
-    val visited = mutableMapOf<Position, Position>()
+            val visited = mutableMapOf<T, T>()
 
-    while (open.size > 0) {
+            while (open.isNotEmpty()) {
 
-        val current = open.minBy { totalCost.getValue(it) }
-        if (current == target) {
-            val path = generatePath(current, visited)
-            return Pair(path, totalCost[target]!!)
-        } else {
-            open.remove(current)
-            closed.add(current)
+                val current = open.minBy { totalCost.getValue(it) }
+                if (isTarget(current)) {
+                    val path = path(current, visited)
+                    return Pair(path, totalCost[current]!!)
+                } else {
+                    open.remove(current)
+                    closed.add(current)
 
-            neightbors(current)
-                    .filterNot { closed.contains(it) }
-                    .forEach { neighbor ->
-                        val costOfMove = costFromStart[current]!! + moveCost(current, neighbor)
+                    neighbors(current)
+                            .filterNot { closed.contains(it) }
+                            .forEach { neighbor ->
+                                val costOfMove = costFromStart[current]!! + moveCost(current, neighbor)
 
-                        if (costOfMove < costFromStart.getOrDefault(neighbor, Int.MAX_VALUE)) {
-                            if (!open.contains(neighbor)) {
-                                open.add(neighbor)
+                                if (costOfMove < costFromStart.getOrDefault(neighbor, Int.MAX_VALUE)) {
+                                    if (!open.contains(neighbor)) {
+                                        open.add(neighbor)
+                                    }
+
+                                    visited[neighbor] = current
+                                    costFromStart[neighbor] = costOfMove
+                                    totalCost[neighbor] = costOfMove + heuristic(neighbor)
+                                }
                             }
-
-                            visited[neighbor] = current
-                            costFromStart[neighbor] = costOfMove
-                            totalCost[neighbor] = costOfMove + heuristic(neighbor, target)
-                        }
-                    }
+                }
+            }
+            throw Exception("No path found from $start")
         }
     }
-    throw Exception()
 }
+

@@ -3,7 +3,7 @@ package advent
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import advent.day16.Contraption
-import advent.day16.Direction
+import advent.support.Direction
 import advent.support.Position
 
 class Day16 {
