@@ -26,7 +26,7 @@ class Universe(val tiles: Map<Position, Tile>) {
         fun parse(input: List<String>): Universe {
 
             val tiles = input
-                    .flatMapIndexed { y, line -> line.mapIndexed { x, char -> Position(x, y) to (Tile from char)!! } }
+                    .flatMapIndexed { y, line -> line.mapIndexed { x, char -> Position(x.toLong(), y.toLong()) to (Tile from char)!! } }
                     .associate { it.first to it.second }
 
             return Universe(tiles)

@@ -115,7 +115,7 @@ class Contraption(val locations: Map<Position, Location>) {
 
     companion object {
         fun parse(input: List<String>): Contraption {
-            return Contraption(input.flatMapIndexed { y: Int, s: String -> s.mapIndexed { x: Int, c: Char -> Position(x, y) to (Location from c)!! } }.associate { it })
+            return Contraption(input.flatMapIndexed { y: Int, s: String -> s.mapIndexed { x: Int, c: Char -> Position(x.toLong(), y.toLong()) to (Location from c)!! } }.associate { it })
         }
 
         fun print(contraption: Contraption, energized: Set<Pair<Position, Direction>>) {

@@ -3,10 +3,10 @@ package advent.support
 typealias NeighborFunction<T> = (node: T) -> List<T>
 
 typealias EndFunction<T> = (node: T) -> Boolean
-typealias CostFunction<T> = (from: T, to: T) -> Int
-typealias HeuristicFunction<T> = (current: T) -> Int
+typealias CostFunction<T> = (from: T, to: T) -> Long
+typealias HeuristicFunction<T> = (current: T) -> Long
 
-typealias PastAndCost<T> = Pair<List<T>, Int>
+typealias PastAndCost<T> = Pair<List<T>, Long>
 
 class Pathfinding {
 
@@ -27,7 +27,7 @@ class Pathfinding {
             val open = mutableSetOf(start)
             val closed = mutableSetOf<T>()
 
-            val costFromStart = mutableMapOf(start to 0)
+            val costFromStart = mutableMapOf(start to 0L)
 
             val totalCost = mutableMapOf(start to heuristic(start))
 
@@ -48,7 +48,7 @@ class Pathfinding {
                             .forEach { neighbor ->
                                 val costOfMove = costFromStart[current]!! + moveCost(current, neighbor)
 
-                                if (costOfMove < costFromStart.getOrDefault(neighbor, Int.MAX_VALUE)) {
+                                if (costOfMove < costFromStart.getOrDefault(neighbor, Long.MAX_VALUE)) {
                                     if (!open.contains(neighbor)) {
                                         open.add(neighbor)
                                     }

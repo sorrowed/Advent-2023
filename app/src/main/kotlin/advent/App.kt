@@ -21,4 +21,5 @@ fun main() {
     advent.day15.run()
     advent.day16.run()
     advent.day17.run()
+    advent.day18.run()
 }

@@ -16,7 +16,7 @@ data class Vertex(val position: Position, val direction: Direction, val moved: I
     }
 }
 
-class City(val nodes: Map<Position, Int>) {
+class City(val nodes: Map<Position, Long>) {
 
     val limits =
             Position(nodes.keys.minBy { it.x }.x, nodes.keys.minBy { it.y }.y) to
@@ -26,7 +26,7 @@ class City(val nodes: Map<Position, Int>) {
     private val cost = { _: Vertex, to: Vertex -> nodes[to.position]!! }
     private val heuristic = { vertex: Vertex -> vertex.position.manhattan(limits.second) }
 
-    fun normalPath(): Pair<List<Position>, Int> {
+    fun normalPath(): Pair<List<Position>, Long> {
 
         val neighbors = { vertex: Vertex ->
             when (vertex.moved) {
@@ -49,6 +49,7 @@ class City(val nodes: Map<Position, Int>) {
                 }
             }.filter { v -> v.position.within(limits.first, limits.second) }
         }
+
         val endFunction = { vertex: Vertex -> vertex.position == limits.second }
 
         val path = Pathfinding.astar(
@@ -61,7 +62,7 @@ class City(val nodes: Map<Position, Int>) {
         return path.first.map { it.position } to path.second
     }
 
-    fun ultraPath(): Pair<List<Position>, Int> {
+    fun ultraPath(): Pair<List<Position>, Long> {
         val neighbors = { vertex: Vertex ->
             when (vertex.moved) {
                 0 -> {
@@ -109,7 +110,7 @@ class City(val nodes: Map<Position, Int>) {
                 val c = if (path.contains(p)) {
                     '*'
                 } else {
-                    '0' + nodes[p]!!
+                    '0' + nodes[p]!!.toInt()
                 }
                 print(c)
             }
@@ -120,7 +121,7 @@ class City(val nodes: Map<Position, Int>) {
     companion object {
         fun parse(input: List<String>): City {
             return City(input.flatMapIndexed { y: Int, s: String ->
-                s.mapIndexed { x, c -> Position(x, y) to c.digitToInt() }
+                s.mapIndexed { x, c -> Position(x.toLong(), y.toLong()) to c.digitToInt().toLong() }
             }.associate { it })
         }
     }

@@ -47,7 +47,7 @@ class Maze(val tiles: Map<Position, Pair<Position, Pipe>>) {
 
             val tiles = lines
                     .flatMapIndexed { y: Int, line: String ->
-                        line.mapIndexed { x, c -> Position(x, y) to (Pipe from c)!! }
+                        line.mapIndexed { x, c -> Position(x.toLong(), y.toLong()) to (Pipe from c)!! }
                     }.associateBy { it.first }
 
             return Maze(tiles)
@@ -95,7 +95,7 @@ class Day10 {
         val polygon = path.toMutableList().also { it.add(start) }
 
         // Count tiles that don't belong to the polygon and are inside it
-        val tiles = original.tiles.filter { !polygon.contains(it.value.first) && inside(it.value.first, polygon) }
+        val tiles = original.tiles.filter { !polygon.contains(it.value.first) && it.value.first.inside(polygon) }
 
         println("Day 10 part 2 : ${tiles.size}")
     }
