@@ -1,7 +1,6 @@
 package advent
 
 import  advent.day12.groupsAndTemplate
-import  advent.day12.arrangements
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
