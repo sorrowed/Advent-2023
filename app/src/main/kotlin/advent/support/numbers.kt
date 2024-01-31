@@ -13,6 +13,6 @@ fun lcm(a: Long, b: Long): Long {
     return abs(a * b) / gcd(a, b)
 }
 
-fun lcm(items: List<Long>): Long {
-    return items.drop(1).fold(items[0]) { total, current -> lcm(total, current) }
+fun lcm(items: Iterable<Long>): Long {
+    return items.drop(1).fold(items.first()) { total, current -> lcm(total, current) }
 }
