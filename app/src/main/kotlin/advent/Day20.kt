@@ -229,7 +229,7 @@ class Day20 {
             if (pulse == Pulse.HIGH) {
                 if (module.id in sources) {
                     m[module.id] = loop - m.getOrDefault(module.id, 0)
-                    println(m[module.id])
+                    // println(m[module.id])
                 }
             }
         }
